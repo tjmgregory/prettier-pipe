@@ -7,7 +7,7 @@ const data = fs.readFileSync(process.stdin.fd, "utf-8");
 
 // Grab the filename that was ideally provided, which will allow pretter to
 // infer the correct parser
-const filepath = process.argv[1];
+const filepath = process.argv[2];
 const prettierConfigDefault = filepath ? { filepath } : { parser: "babel" };
 
 // Find your nearest prettier config
