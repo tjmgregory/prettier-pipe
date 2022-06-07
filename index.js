@@ -5,8 +5,19 @@ const fs = require("fs");
 // Read from stdin
 const data = fs.readFileSync(process.stdin.fd, "utf-8");
 
-// Format
-const formatted = prettier.format(data, { semi: false, parser: "babel" });
+// Grab the filename that was ideally provided, which will allow pretter to
+// infer the correct parser
+const filepath = process.argv[1];
+const prettierConfigDefault = filepath ? { filepath } : { parser: "babel" };
 
-// This instead of log to avoid the newline
-fs.writeFileSync(process.stdout.fd, data);
+// Find your nearest prettier config
+prettier.resolveConfig(process.cwd()).then((config) => {
+  // Format
+  const formatted = prettier.format(data, {
+    ...prettierConfigDefault,
+    ...config,
+  });
+
+  // This instead of log to avoid the newline
+  fs.writeFileSync(process.stdout.fd, formatted);
+});
