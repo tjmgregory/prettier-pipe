@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /Users/theo/projects/prettier-pipe/index.js "$1"
