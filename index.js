@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const prettier = require("prettier");
 const fs = require("fs");
 
